@@ -1,0 +1,8 @@
+.lsp-session*
+auto-save-list
+backups
+elpa
+forge-database.sqlite
+projectile-bookmarks.eld
+recentf
+transient
