@@ -84,10 +84,10 @@
 ;;   :config
 ;;   (load-theme 'base16-nord t))
 
-(use-package kaolin-themes
-  :ensure t
-  :config
-  (load-theme 'kaolin-galaxy t))
+;; (use-package kaolin-themes
+;;   :ensure t
+;;   :config
+;;   (load-theme 'kaolin-galaxy t))
 
 (use-package doom-themes
   :ensure t
@@ -95,7 +95,19 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   :config
-  (doom-themes-visual-bell-config))
+  (doom-themes-visual-bell-config)
+  (load-theme 'doom-palenight t))
+
+(use-package solaire-mode
+  :ensure t
+  :defines solaire-mode-remap-fringe
+  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
+         (minibuffer-setup . solaire-mode-in-minibuffer)
+         (after-load-theme . solaire-mode-swap-bg))
+  :config
+  (setq solaire-mode-remap-fringe nil)
+  (solaire-global-mode 1)
+  (solaire-mode-swap-bg))
 
 (use-package smart-mode-line
   :ensure t
@@ -236,6 +248,11 @@
       (when (and eslint (file-executable-p eslint))
         (setq-local flycheck-javascript-eslint-executable eslint))))
 
+  (setq flycheck-indication-mode 'right-fringe)
+  (when (fboundp 'define-fringe-bitmap)
+    (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+      [16 48 112 240 112 48 16] nil nil 'center))
+
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules))
 
@@ -265,10 +282,9 @@
       :demand)))
 
 (use-package diff-hl
-  :ensure t
   :defines (diff-hl-margin-symbols-alist desktop-minor-mode-table)
   :commands diff-hl-magit-post-refresh
-  ;; :functions  my-diff-hl-fringe-bmp-function
+  :functions  my-diff-hl-fringe-bmp-function
   :custom-face (diff-hl-change ((t (:foreground ,(face-background 'highlight)))))
   :bind (:map diff-hl-command-map
          ("SPC" . diff-hl-mark-hunk))
@@ -281,13 +297,13 @@
   ;; Set fringe style
   (setq-default fringes-outside-margins t)
 
-  ;; (defun my-diff-hl-fringe-bmp-function (_type _pos)
-  ;;   "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
-  ;;   (define-fringe-bitmap 'my-diff-hl-bmp
-  ;;     (vector (if sys/macp #b11100000 #b11111100))
-  ;;     1 8
-  ;;     '(center t)))
-  ;; (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
+  (defun my-diff-hl-fringe-bmp-function (_type _pos)
+    "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
+    (define-fringe-bitmap 'my-diff-hl-bmp
+      (vector #b11100000)
+      1 8
+      '(center t)))
+  (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
 
   (unless (display-graphic-p)
     (setq diff-hl-margin-symbols-alist
@@ -325,4 +341,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(diff-hl-change ((t (:foreground "#81a2be")))))
+ '(diff-hl-change ((t (:foreground "#615B75")))))
