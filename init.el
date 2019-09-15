@@ -72,8 +72,8 @@
 
 (use-package avy
   :ensure t
-  :bind
-  ("C-'" . avy-goto-char)
+  :bind (("C-'" . avy-goto-char)
+         ("M-g w" . avy-goto-word-0))
   :config
   (setq avy-background t))
 
@@ -97,6 +97,10 @@
 (use-package imenu
   :ensure nil
   :bind (("C-." . imenu)))
+
+(use-package goto-chg
+  :ensure t
+  :bind ("C-," . goto-last-change))
 
 ; Themes
 ;; (use-package base16-theme
@@ -370,9 +374,3 @@
  '(package-selected-packages
    (quote
     (diminish yasnippet-snippets which-key use-package smartparens smart-mode-line-powerline-theme smart-mode-line-atom-one-dark-theme js2-mode helm-projectile helm-descbinds helm-ag forge expand-region exec-path-from-shell dtrt-indent doom-themes diff-hl crux company-lsp company-dcd better-defaults base16-theme avy))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(diff-hl-change ((t (:foreground "#615B75")))))
