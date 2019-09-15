@@ -82,6 +82,22 @@
   :commands dtrt-indent-mode
   :hook (after-init . dtrt-indent-global-mode))
 
+(make-variable-buffer-local 'undo-tree-visualizer-diff)
+(use-package undo-tree
+  :ensure t
+  :diminish
+  :hook (after-init . global-undo-tree-mode)
+  :init (setq undo-tree-visualizer-timestamps t
+              undo-tree-visualizer-diff t
+              undo-tree-enable-undo-in-region nil
+              undo-tree-auto-save-history nil
+              undo-tree-history-directory-alist
+              `(("." . ,(locate-user-emacs-file "undo-tree-hist/")))))
+
+(use-package imenu
+  :ensure nil
+  :bind (("C-." . imenu)))
+
 ; Themes
 ;; (use-package base16-theme
 ;;   :ensure t
