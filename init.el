@@ -1,4 +1,8 @@
-;; Package configs
+;;; init.el --- Initialization file for Emacs
+;;; Commentary:
+;;; Suitable for web and clojure development
+
+;;; Code:
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("org"   . "http://orgmode.org/elpa/")
@@ -119,6 +123,18 @@
 ;; Helm
 (use-package helm
   :ensure t
+  :defines (helm-command-prefix-key
+            helm-M-x-fuzzy-match
+            helm-buffers-fuzzy-matching
+            helm-recentf-fuzzy-match
+            helm-semantic-fuzzy-match
+            helm-imenu-fuzzy-match
+            helm-locate-fuzzy-match
+            helm-apropos-fuzzy-match
+            helm-lisp-fuzzy-completion
+            helm-mode-fuzzy-match
+            helm-completion-in-region-fuzzy-match
+            helm-candidate-number-list)
   :bind (("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)
          ("C-x C-f" . helm-find-files)
@@ -142,7 +158,6 @@
   (setq helm-mode-fuzzy-match t)
   (setq helm-completion-in-region-fuzzy-match t)
   (setq helm-candidate-number-list 50)
-  (setq projectile-completion-system 'helm)
   (helm-autoresize-mode 1)
   (helm-mode 1))
 
@@ -163,9 +178,12 @@
 (use-package projectile
   :ensure t
   :diminish projectile-mode
+  :commands projectile-global-mode
   :bind (("C-c p f" . helm-projectile-find-file)
          ("C-c p p" . helm-projectile-switch-project)
          ("C-c p s" . projectile-save-project-buffers))
+  :init
+  (setq projectile-completion-system 'helm)
   :config
   (projectile-global-mode))
 
@@ -323,7 +341,7 @@
 
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
-(setq ns-use-proxy-icon  nil)
+(setq-default ns-use-proxy-icon  nil)
 (setq frame-title-format nil)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
