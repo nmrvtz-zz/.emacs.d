@@ -158,7 +158,8 @@
   :bind (("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)
          ("C-x C-f" . helm-find-files)
-         ("C-x b" . helm-mini))
+         ("C-x b" . helm-mini)
+         ("C-c p s s" . helm-projectile-ag))
          ;; ("C-x b" . helm-buffers-list))
   :config
   (require 'helm-config)
@@ -198,14 +199,14 @@
 (use-package projectile
   :ensure t
   :diminish projectile-mode
-  :commands projectile-global-mode
+  :commands projectile-mode
   :bind (("C-c p f" . helm-projectile-find-file)
-         ("C-c p p" . helm-projectile-switch-project)
-         ("C-c p s" . projectile-save-project-buffers))
+         ("C-c p p" . helm-projectile-switch-project))
+         ;; ("C-c p s" . projectile-save-project-buffers))
   :init
   (setq projectile-completion-system 'helm)
   :config
-  (projectile-global-mode))
+  (projectile-mode))
 
 
 ;; Which Key
@@ -219,12 +220,28 @@
   (which-key-mode))
 
 ;; Javascript
-
 (use-package js2-mode
-             :ensure t
-             :config
-             (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 
+;; Clojure
+(use-package clojure-mode
+  :ensure t)
+
+(use-package cider
+  :ensure t
+  :defines
+  nrepl-hide-special-buffers
+  cider-eval-result-prefix
+  cider-font-lock-dynamically
+  :config
+  (setq
+   nrepl-hide-special-buffers t
+   cider-eval-result-prefix ";; => "
+   cider-font-lock-dynamically '(macro core function var)))
+
+;; Company
 (use-package company
   :diminish company-mode
   :defines (company-dabbrev-ignore-case company-dabbrev-downcase)
@@ -257,6 +274,7 @@
         company-dabbrev-downcase nil))
 
 (use-package company-lsp
+  :ensure t
   :init (setq company-lsp-cache-candidates 'auto
               company-lsp-async t))
 
@@ -320,6 +338,7 @@
       :demand)))
 
 (use-package diff-hl
+  :ensure t
   :defines (diff-hl-margin-symbols-alist desktop-minor-mode-table)
   :commands diff-hl-magit-post-refresh
   :functions  my-diff-hl-fringe-bmp-function
@@ -374,3 +393,9 @@
  '(package-selected-packages
    (quote
     (diminish yasnippet-snippets which-key use-package smartparens smart-mode-line-powerline-theme smart-mode-line-atom-one-dark-theme js2-mode helm-projectile helm-descbinds helm-ag forge expand-region exec-path-from-shell dtrt-indent doom-themes diff-hl crux company-lsp company-dcd better-defaults base16-theme avy))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(diff-hl-change ((t (:foreground "#c792ea")))))
