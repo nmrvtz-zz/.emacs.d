@@ -154,7 +154,8 @@
             helm-lisp-fuzzy-completion
             helm-mode-fuzzy-match
             helm-completion-in-region-fuzzy-match
-            helm-candidate-number-list)
+            helm-candidate-number-list
+            helm-window-prefer-horizontal-split)
   :bind (("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)
          ("C-x C-f" . helm-find-files)
@@ -179,6 +180,7 @@
   (setq helm-mode-fuzzy-match t)
   (setq helm-completion-in-region-fuzzy-match t)
   (setq helm-candidate-number-list 50)
+  (setq helm-window-prefer-horizontal-split t)
   (helm-autoresize-mode 1)
   (helm-mode 1))
 
