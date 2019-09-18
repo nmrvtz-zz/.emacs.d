@@ -31,6 +31,9 @@
                     :weight 'normal
                     :width 'normal)
 
+;; Disable lock files
+(setq create-lockfiles nil)
+
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
