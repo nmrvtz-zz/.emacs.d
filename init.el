@@ -169,7 +169,7 @@
 
 (use-package highlight-operators
   :ensure t
-  :hook (prog-mode . highlight-operators-mode))
+  :hook (js2-mode . highlight-operators-mode))
 
 (use-package highlight-escape-sequences
   :ensure t
@@ -191,6 +191,25 @@
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode))
+
+;;Tabs
+(use-package centaur-tabs
+  :ensure t
+  :demand
+  :init (setq centaur-tabs-set-bar 'over)
+  :config
+  (centaur-tabs-mode +1)
+  (centaur-tabs-headline-match)
+  (setq centaur-tabs-set-modified-marker t
+        centaur-tabs-modified-marker " ● "
+        centaur-tabs-cycle-scope 'tabs
+        centaur-tabs-height 30
+        centaur-tabs-set-icons t
+        centaur-tabs-close-button " × ")
+  (centaur-tabs-change-fonts "Arial" 130)
+  :bind
+  ("C-S-<tab>" . centaur-tabs-backward)
+  ("C-<tab>" . centaur-tabs-forward))
 
 ;; Helm
 (use-package helm
