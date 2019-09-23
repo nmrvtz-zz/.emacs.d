@@ -24,9 +24,15 @@
 
 (setq-default tab-width 2)
 
+;; Recompile
+(defun my/byte-compile
+    ()
+    "Byte compile config."
+    (byte-recompile-directory (expand-file-name "~/.emacs.d") 0))
+
 ;; Set default font
 (set-face-attribute 'default nil
-                    :family "Fira Code"
+                    :family "Hasklug Nerd Font"
                     :height 140
                     :weight 'normal
                     :width 'normal)
