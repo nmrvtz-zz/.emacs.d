@@ -3,6 +3,24 @@
 ;;; Suitable for web and clojure development
 
 ;;; Code:
+(setq gc-cons-threshold 402653184
+      gc-cons-percentage 0.6
+      file-name-handler-alist-original file-name-handler-alist
+      file-name-handler-alist nil
+      site-run-file nil)
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold 20000000
+                  gc-cons-percentage 0.1
+                  file-name-handler-alist file-name-handler-alist-original)
+            (makunbound 'file-name-handler-alist-original)))
+
+(add-hook 'minibuffer-setup-hook (lambda () (setq gc-cons-threshold 40000000)))
+(add-hook 'minibuffer-exit-hook (lambda ()
+                                  (garbage-collect)
+                                  (setq gc-cons-threshold 20000000)))
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("org"   . "http://orgmode.org/elpa/")
@@ -144,6 +162,18 @@
   (setq solaire-mode-remap-fringe nil)
   (solaire-global-mode 1)
   (solaire-mode-swap-bg))
+
+(use-package highlight-numbers
+  :ensure t
+  :hook (prog-mode . highlight-numbers-mode))
+
+(use-package highlight-operators
+  :ensure t
+  :hook (prog-mode . highlight-operators-mode))
+
+(use-package highlight-escape-sequences
+  :ensure t
+  :hook (prog-mode . hes-mode))
 
 ;; Modeline
 ;; (use-package smart-mode-line
