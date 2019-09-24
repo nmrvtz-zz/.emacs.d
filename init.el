@@ -460,7 +460,7 @@
   :diminish (dashboard-mode page-break-lines-mode)
   :hook ((dashboard-mode . (lambda () (setq-local tab-width 1))))
   :init
-  (setq dashboard-startup-banner    'official
+  (setq dashboard-startup-banner    'logo
         dashboard-center-content    t
         dashboard-show-shortcuts    t
         dashboard-set-heading-icons nil
