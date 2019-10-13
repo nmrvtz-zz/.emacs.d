@@ -21,6 +21,11 @@
                                   (garbage-collect)
                                   (setq gc-cons-threshold 20000000)))
 
+;; Fullscreen
+;; WORKAROUND: To address blank screen issue with child-frame in fullscreen
+(add-hook 'window-setup-hook (lambda ()
+                               (setq ns-use-native-fullscreen nil)))
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("org"   . "http://orgmode.org/elpa/")
