@@ -6,3 +6,7 @@ forge-database.sqlite
 projectile-bookmarks.eld
 recentf
 transient
+.cache
+bookmarks
+eshell
+url
