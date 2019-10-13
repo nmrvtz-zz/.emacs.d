@@ -50,8 +50,8 @@
 
 ;; Set default font
 (set-face-attribute 'default nil
-                    :family "TerminessTTF Nerd Font"
-                    :height 140
+                    :family "Monoid Nerd Font"
+                    :height 120
                     :weight 'normal
                     :width 'normal)
 
